@@ -1,4 +1,4 @@
 #!/usr/bin/env perl
 use Dancer;
-use HITS::Identity;
+use HITS::DevDash;
 dance;

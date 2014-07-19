@@ -36,7 +36,7 @@ plugins:
     Database:
         driver: 'mysqlPP'
         host: 'sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com'
-        database: 'identity'
+        database: 'X'
         username: 'sifau'
         password: '03_SIS_was_not'
         dbi_params:
