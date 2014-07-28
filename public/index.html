@@ -15,6 +15,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
   </head>
 
   <body>
@@ -52,13 +54,15 @@
 	  <ul class="nav nav-sidebar">
 	    <li class="hdd-nav active"><a id="hdd-nav-info" href="#hdd-body-info">Information</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-dashboard" href="#hdd-body-dashboard">Dashboard</a></li>
-	    <li class="hdd-nav"><a id="hdd-nav-view" href="#">View</a></li>
-	    <li class="hdd-nav"><a id="hdd-nav-report" href="#">Report</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-view" href="#hdd-body-view">View</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-report" href="#hdd-body-report">Report</a></li>
 	  </ul>
 	</div>
 
 
-	<!-- ====================================================================== -->
+	<!-- ====================================================================== 
+			INFORMATION
+	-->
 	<div class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-info">
 	  <h1 class="page-header">Information</h1>
 
@@ -96,7 +100,9 @@
 
 		</div>
 
-	<!-- ====================================================================== -->
+	<!-- ====================================================================== 
+			DASHBOARD
+	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-dashboard">
 	  <h1 class="page-header">Dashboard</h1>
 
@@ -127,15 +133,71 @@
 	</div>
 
 
-	<!-- ====================================================================== -->
+	<!-- ====================================================================== 
+			DASHBOARD - View
+	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-dashboard-view">
 	  <h1 class="page-header">Entry View</h1>
-		<pre id="hdd-body-dashboard-view-details">
-			Loading...
-		</pre>
+
+		<button id="hdd-dashboard-back" type="button" class="btn btn-default btn-lg">
+		  <span class="glyphicon glyphicon-arrow-left"></span> Back
+		</button>
+
+		<h2>DETAILS</h2>
+		<ul>
+			<li>ID: <span class="field" dataid="id">...</span>
+			<li>instance ID: <span class="field" dataid="instanceId">...</span>
+			<li>Zone: <span class="field" dataid="zone">...</span>
+			<li>Enviornment Token: <span class="field" dataid="enviornmentToken">...</span>
+			<li>Session Token: <span class="field" dataid="sessionToken">...</span>
+			<li>App Key: <span class="field" dataid="appKey">...</span>
+			<li>Context: <span class="field" dataid="context">...</span>
+			<li>User Token: <span class="field" dataid="userToken">...</span>
+			<li>Zone: <span class="field" dataid="zone">...</span>
+			<li>Solution ID: <span class="field" dataid="solutionId">...</span>
+			<li>Client IP: <span class="field" dataid="clientIp">...</span>
+		</ul>
+
+		<h2>REQUEST</h2>
+		<ul>
+			<li>URL: <span class="field" dataid="url">...</span>
+			<li>Method: <span class="field" dataid="method">...</span>
+			<li>Query Parameters: <span class="field" dataid="queryParameters">...</span>
+			<li>Request Time: <span class="field" dataid="requestTime">...</span>
+		<ul>
+		<h3>Request Headers</h3>
+		<pre><code class="field" dataid="requestHeaders"></code></pre>
+		<h3>Request Body</h3>
+		<pre><code class="field xml" dataid="request"></code></pre>
+
+		<h2>RESPONSE</h2>
+		<ul>
+			<li>Response Time: <span class="field" dataid="responseTime">...</span>
+			<li>HTTP Status: <span class="field" dataid="httpStatus">...</span>
+		</ul>
+		<h3>Response Headers</h3>
+		<pre><code class="field" dataid="responseHeaders"></code></pre>
+		<h3>Response Body</h3>
+		<pre><code class="field xml" dataid="response"></code></pre>
 
 	</div>
 
+
+	<!-- ====================================================================== 
+			VIEW
+	-->
+	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-view">
+	  <h1 class="page-header">View Database</h1>
+		<p>View Database coming soon</p>
+	</div>
+
+	<!-- ====================================================================== 
+			REPORT
+	-->
+	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-report">
+	  <h1 class="page-header">Report</h1>
+		<p>Report coming soon</p>
+	</div>
 
 
 
@@ -151,7 +213,16 @@
     <script src="lib/jquery.tablesorter.js"></script>
     <!-- script src="js/docs.min.js"></script -->
 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
+
 	<script>
+		hljs.initHighlightingOnLoad();
+
+        var entify = function(data) {
+                return document.createElement( 'a' ).appendChild( 
+                        document.createTextNode( data ) ).parentNode.innerHTML;
+        };
+
 		// ----------------------------------------------------------------------
 		// Navigation
 		$('.hdd-nav').click(function() {
@@ -159,6 +230,10 @@
 			$(this).addClass('active');
 			$('.hdd-body').hide();
 			$($(this).find('a').attr('href')).show(); // href contains ID
+		});
+		$('#hdd-dashboard-back').click(function() {
+			$('.hdd-body').hide();
+			$('#hdd-body-dashboard').show();
 		});
 
 		// ----------------------------------------------------------------------
@@ -241,14 +316,34 @@
 						console.log(data);
 						$('.hdd-body').hide();
 						$('#hdd-body-dashboard-view').show();
-						var disp = $('#hdd-body-dashboard-view-details');
-						$.each(data, function(k,v) {
-							disp.append('<li>' + k + ' = ' + v + '</li>');
+						var disp = $('#hdd-body-dashboard-view');
+
+						disp.find('.field').each(function(i, block) {
+							var k = $(this).attr('dataid');
+							$(this).html(entify(data[k]));
+						});
+
+						// disp.append('<pre><code>' + entify(data.response) + '</code></pre>');
+						$('#hdd-body-dashboard-view').find('pre code').each(function(i, block) {
+							hljs.highlightBlock(block);
 						});
 					});
 				});
 			});
 		});
+
+		/* TODO 
+
+			- Entry View
+				. Pretty presentation of each of the special fields
+				. HTTML Entify all
+				. Scrollable XML Request / Response boxes?
+				. Back button
+			- View (database)
+				. Tables
+				. Rows
+		*/
+
 		
 	</script>
   </body>
