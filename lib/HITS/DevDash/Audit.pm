@@ -68,18 +68,14 @@ Primary protection = appKey (currently only HITS)
 =cut
 
 our $VERSION = '0.1';
-prefix undef;
+prefix '/audit';
 set serializer => 'mutable';
 
 get '/' => sub {
 	# TODO - API definition
 };
 
-get '/audit' => sub {
-	# TODO - API definition
-};
-
-get '/audit/:appKey' => sub {
+get '/:appKey' => sub {
 	# TODO - Show list for this ID (most recent 25, add params later)
 	my $sth = database->prepare(q{
 		SELECT 
@@ -103,7 +99,7 @@ get '/audit/:appKey' => sub {
 	};
 };
 
-get '/audit/:appKey/entry/:auditId' => sub {
+get '/:appKey/entry/:auditId' => sub {
 	my $sth = database->prepare(q{
 		SELECT
 			*

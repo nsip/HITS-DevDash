@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>NSIP: Developer Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <a class="navbar-brand" href="#">NSIP: Developer Dashboard</a>
+	</div>
+	<div class="navbar-collapse collapse">
+	  <ul class="nav navbar-nav navbar-right">
+	    <li><a href="#">Dashboard</a></li>
+	    <li><a href="http://hits.dev.nsip.edu.au/site/user">Settings</a></li>
+	    <li><a href="http://hits.dev.nsip.edu.au/site/">HITS</a></li>
+	    <li><a href="http://hits.dev.nsip.edu.au/site/help-developer-dashboard">Help</a></li>
+	  </ul>
+<!--
+	  <form class="navbar-form navbar-right">
+	    <input type="text" class="form-control" placeholder="Search...">
+	  </form>
+-->
+	</div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+	<div class="col-sm-3 col-md-2 sidebar">
+	  <ul class="nav nav-sidebar">
+	    <li class="hdd-nav active"><a id="hdd-nav-info" href="#hdd-body-info">Information</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-dashboard" href="#hdd-body-dashboard">Dashboard</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-view" href="#">View</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-report" href="#">Report</a></li>
+	  </ul>
+	</div>
+
+
+	<!-- ====================================================================== -->
+	<div class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-info">
+	  <h1 class="page-header">Information</h1>
+
+			<div class="alert alert-danger" id="hdd-info-error">
+				Error - unable to access developer details.
+				<a href="http://hits.dev.nsip.edu.au/site/help-developer-dashboard">Help...</a>
+				<div id="hdd-info-error-details">...</div>
+			</div>
+
+		  <div class="table-responsive">
+			<table class="table table-striped">
+			  <thead>
+			<tr>
+			  <th>Info</th>
+			  <th>Data</th>
+			</tr>
+			  </thead>
+			  <tbody>
+			<tr>
+			  <td>Token</td>
+			  <td>{token}</td>
+			</tr>
+			<tr>
+			  <td>SIF Javascript Client</td>
+			  <td><a href="http://hits.dev.nsip.edu.au/client/Simple/?school_id=0EE41AE6-C43F-11E3-9050-E0F4DBD909AB">HITS SIF Simple Client</a></td>
+			</tr>
+			<tr>
+			  <td>HITS Details</td>
+			  <td><a href="http://hits.dev.nsip.edu.au/site/school-apps-view?school_id=0EE41AE6-C43F-11E3-9050-E0F4DBD909AB&app_id=6d4e8121-2d20-4d40-aab5-1cdc3fa6908b">HITS Details Link</a></td>
+			</tr>
+			  </tbody>
+			</table>
+		  </div>
+
+
+		</div>
+
+	<!-- ====================================================================== -->
+	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-dashboard">
+	  <h1 class="page-header">Dashboard</h1>
+
+	  <div class="row placeholders">
+	    <div class="col-xs-6 col-sm-3 placeholder">
+	      <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+	      <h4>Label</h4>
+	      <span class="text-muted">Something else</span>
+	    </div>
+	    <div class="col-xs-6 col-sm-3 placeholder">
+	      <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+	      <h4>Label</h4>
+	      <span class="text-muted">Something else</span>
+	    </div>
+	    <div class="col-xs-6 col-sm-3 placeholder">
+	      <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+	      <h4>Label</h4>
+	      <span class="text-muted">Something else</span>
+	    </div>
+	    <div class="col-xs-6 col-sm-3 placeholder">
+	      <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+	      <h4>Label</h4>
+	      <span class="text-muted">Something else</span>
+	    </div>
+	  </div>
+
+	  <h2 class="sub-header">Section title</h2>
+	  <div class="table-responsive">
+	    <table class="table table-striped">
+	      <thead>
+		<tr>
+		  <th>#</th>
+		  <th>Header</th>
+		  <th>Header</th>
+		  <th>Header</th>
+		  <th>Header</th>
+		</tr>
+	      </thead>
+	      <tbody>
+		<tr>
+		  <td>1,001</td>
+		  <td>Lorem</td>
+		  <td>ipsum</td>
+		  <td>dolor</td>
+		  <td>sit</td>
+		</tr>
+	      </tbody>
+	    </table>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery.rest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="lib/purl.js"></script>
+    <script src="lib/alertify.js"></script>
+    <!-- script src="js/docs.min.js"></script -->
+
+	<script>
+		// ----------------------------------------------------------------------
+		// Navigation
+		$('.hdd-nav').click(function() {
+			$('.hdd-nav').removeClass('active');
+			$(this).addClass('active');
+			$('.hdd-body').hide();
+			$($(this).find('a').attr('href')).show(); // href contains ID
+		});
+
+		// ----------------------------------------------------------------------
+		// Load TOKEN and check for errors
+		var token = $.url().param('token');
+		console.log(token);
+		if (token) {
+			$('#hdd-info-error').hide();
+		}
+		else {
+			$('#hdd-info-error-details').html('No TOKEN provided');
+		}
+
+		// ----------------------------------------------------------------------
+		// REST API
+		var api = new $.RestClient(
+			'/',
+			{
+				cache: 10,
+				stripTrailingSlash: true,
+				stringifyData: true,
+				request: function(resource, options) {
+					return $.ajax(options);
+				},
+				ajax: {
+					contentType:"application/json; charset=utf-8"
+				},
+				fail: function(err) {
+					if (err.status == 403)
+						alertify.confirm("Authentication Failure: " + err.statusText, function (e) {
+							if (e) {
+								window.location = '/site/';
+							} else {
+								throw("403 error - " + err.statusText);
+							}
+						});
+					else {
+						if (err.responseText) {
+							alertify.alert("Unknown API Error: " + err.statusText + "<br><pre>" + err.responseText + "</pre>");
+						}
+					}
+				}
+			}
+		);
+		api.add('audit');
+		api.audit.add('entry');
+		api.add('view');
+
+		// ----------------------------------------------------------------------
+		// Update information details
+
+		// ----------------------------------------------------------------------
+		// Events - only read audit log if that window is showing
+		api.audit.read(token).done(function(data) {
+			console.log(data);
+		});
+		
+	</script>
+  </body>
+</html>
