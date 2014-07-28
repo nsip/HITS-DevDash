@@ -80,6 +80,7 @@ get '/audit' => sub {
 };
 
 get '/audit/:appKey' => sub {
+	info(params->{appKey});
 	# TODO - Show list for this ID (most recent 25, add params later)
 	my $sth = database->prepare(q{
 		SELECT 
@@ -91,7 +92,7 @@ get '/audit/:appKey' => sub {
 		FROM
 			XMLAudit
 		WHERE
-			appKey = 'HITS'
+			appKey = ?
 		ORDER BY
 			id DESC
 		LIMIT
