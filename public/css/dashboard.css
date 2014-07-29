@@ -1,6 +1,18 @@
-/*
- * Base structure
+/* Colours -------------------------------------
+
+#428bca - med blue
+#2a6496 - darker/duller blue
+
  */
+
+/*
+ * Base structure -------------------------------------
+ */
+
+/* Force right scrollbar to eliminate 'jump' */ 
+html {
+	overflow-y: scroll; 
+}
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
@@ -9,7 +21,7 @@ body {
 
 
 /*
- * Global add-ons
+ * Global add-ons -------------------------------------
  */
 
 .sub-header {
@@ -26,7 +38,7 @@ body {
 }
 
 /*
- * Sidebar
+ * Sidebar -------------------------------------
  */
 
 /* Hide for mobile, show later */
@@ -68,25 +80,106 @@ body {
 
 
 /*
- * Main content
+ * Main content -------------------------------------
  */
 
 .main {
-  padding: 20px;
+	padding: 20px;
 }
+
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
     padding-left: 40px;
   }
 }
+
 .main .page-header {
-  margin-top: 0;
+	margin-top: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+iframe  {
+	margin-top: 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+pre {
+	max-height: 12em;
+}
+
+.hljs {
+	background: none !important; 
+}
+
+h2.subsequent {
+	border-top: 1px solid #ccc;
+	padding-top: 10px;
+	margin-top: 30px;
+}
+
+.navbar-header
+
+.logo {
+	float: left;
+	margin-top: 4px;
+	margin-right: 60px;
+} 
+
+/*
+ * Buttons -------------------------------------
+ */
+
+.btn-right {
+	float: right;
+	margin-top: -70px;
+}
+
+.btn-default {
+color: #fff;
+background-color: #428bca;
+border: #fff;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active {
+color: #fff;
+background-color: #2a6496;
+border: #fff;
+}
+
+/*
+ * Lists -------------------------------------
+ */
+ 
+ul.details {
+	padding-left: 10px;
+} 
+ 
+ul.details.half {
+	width: 45%;	
+	float: left;
+	margin-right: 20px;
+} 
+ 
+ul.details li {
+	color: #2a6496;
+	list-style: none;
+	margin-bottom: 10px;
+	font-weight: bold;
+} 
+
+ul.details li span {
+	color: #333;
+	font-weight: normal;
 }
 
 
 /*
- * Placeholder dashboard ideas
+ * Placeholder dashboard ideas -------------------------------------
  */
 
 .placeholders {

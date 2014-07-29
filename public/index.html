@@ -38,7 +38,6 @@ Design changes:
 		http://www.nsip.edu.au/ - logo?
 	* Information
 		- Pretty
-	* 
 
 -->
 
@@ -47,7 +46,8 @@ Design changes:
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid">
 	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	  <div class="logo"><a href="http://www.nsip.edu.au/"><img src="images/logo-small.png"></a></div>
+	  	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	    <span class="sr-only">Toggle navigation</span>
 	    <span class="icon-bar"></span>
 	    <span class="icon-bar"></span>
@@ -124,7 +124,7 @@ Design changes:
 		  </div>
 
 
-			<h3>Brief Instructions</h3>
+			<h2 class="subsequent">Brief instructions</h2>
 			<p>Using the navigation on the left, select the following options:
 			<ul>
 				<li>Information - Tokens, IDs and other getting started information</li>
@@ -142,7 +142,7 @@ Design changes:
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-dashboard">
 	  <h1 class="page-header">Dashboard</h1>
 
-		<button id="hdd-dashboard-refresh" type="button" class="btn btn-default btn-lg">
+		<button id="hdd-dashboard-refresh" type="button" class="btn btn-default btn-lg btn-right">
 		  <span class="glyphicon glyphicon-refresh"></span> Refresh
 		</button>
 
@@ -161,7 +161,7 @@ Design changes:
 	      </thead>
 	      <tbody>
 		<tr>
-		  <td>Click Refrehs / Loading...</td>
+		  <td>Click refresh / Loading...</td>
 		</tr>
 	      </tbody>
 	    </table>
@@ -173,19 +173,21 @@ Design changes:
 			DASHBOARD - View
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-dashboard-view">
-	  <h1 class="page-header">Entry View</h1>
+	  <h1 class="page-header">Entry view</h1>
 
-		<button id="hdd-dashboard-back" type="button" class="btn btn-default btn-lg">
+		<button id="hdd-dashboard-back" type="button" class="btn btn-default btn-lg btn-right">
 		  <span class="glyphicon glyphicon-arrow-left"></span> Back
 		</button>
 
-		<h2>DETAILS</h2>
-		<ul>
+		<h2>Details</h2>
+		<ul class="details half">
 			<li>ID: <span class="field" dataid="id">...</span>
 			<li>instance ID: <span class="field" dataid="instanceId">...</span>
 			<li>Zone: <span class="field" dataid="zone">...</span>
 			<li>Enviornment Token: <span class="field" dataid="enviornmentToken">...</span>
 			<li>Session Token: <span class="field" dataid="sessionToken">...</span>
+		</ul>
+		<ul class="details half">
 			<li>App Key: <span class="field" dataid="appKey">...</span>
 			<li>Context: <span class="field" dataid="context">...</span>
 			<li>User Token: <span class="field" dataid="userToken">...</span>
@@ -193,27 +195,38 @@ Design changes:
 			<li>Solution ID: <span class="field" dataid="solutionId">...</span>
 			<li>Client IP: <span class="field" dataid="clientIp">...</span>
 		</ul>
+		
+		<div class="clear"></div>
 
-		<h2>REQUEST</h2>
-		<ul>
+		<h2 class="subsequent">Request</h2>
+		<ul class="details">
 			<li>URL: <span class="field" dataid="url">...</span>
 			<li>Method: <span class="field" dataid="method">...</span>
 			<li>Query Parameters: <span class="field" dataid="queryParameters">...</span>
 			<li>Request Time: <span class="field" dataid="requestTime">...</span>
 		</ul>
-		<h3>Request Headers</h3>
+		
+		<div class="clear"></div>
+		
+		<h3>Request headers</h3>
 		<pre><code class="field" dataid="requestHeaders"></code></pre>
-		<h3>Request Body</h3>
+		<h3>Request body</h3>
 		<pre><code class="field xml" dataid="request"></code></pre>
 
-		<h2>RESPONSE</h2>
-		<ul>
+		<h2 class="subsequent">Response</h2>
+		
+		<ul class="details half">
 			<li>Response Time: <span class="field" dataid="responseTime">...</span>
+		</ul>
+		<ul class="details half">
 			<li>HTTP Status: <span class="field" dataid="httpStatus">...</span>
 		</ul>
-		<h3>Response Headers</h3>
+		
+		<div class="clear"></div>
+		
+		<h3>Response headers</h3>
 		<pre><code class="field" dataid="responseHeaders"></code></pre>
-		<h3>Response Body</h3>
+		<h3>Response body</h3>
 		<pre><code class="field xml" dataid="response"></code></pre>
 
 	</div>
@@ -223,12 +236,10 @@ Design changes:
 			CLIENT
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-client">
-	  <h1 class="page-header">Client Access</h1>
-		<a  type="button" class="btn btn-default btn-lg" href="http://hits.dev.nsip.edu.au/sifdoc/SIFSimple/">
-		  <span class="glyphicon glyphicon-arrow-pencil"></span> View Swagger Documentation
-		</a>
+	  <h1 class="page-header">Client access</h1>
+		<a href="http://hits.dev.nsip.edu.au/sifdoc/SIFSimple/">View Swagger documentation</a>
 		
-		<iframe style="min-height: 100%; height: 600px; width: 100%;" src="http://hits.dev.nsip.edu.au/client/Simple/?school_id=0EE41AE6-C43F-11E3-9050-E0F4DBD909AB">
+		<iframe style="height: 640px; width: 100%;" src="http://hits.dev.nsip.edu.au/client/Simple/?school_id=0EE41AE6-C43F-11E3-9050-E0F4DBD909AB">
 		</iframe>
 	</div>
 
@@ -236,7 +247,7 @@ Design changes:
 			VIEW
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-view">
-	  <h1 class="page-header">View Database</h1>
+	  <h1 class="page-header">View database</h1>
 		<ul id="hdd-body-view-list">
 		</ul>
 	</div>
@@ -245,8 +256,8 @@ Design changes:
 			VIEW - Table
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-view-table">
-	  <h1 class="page-header">View Database - Table</h1>
-		<button id="hdd-view-back" type="button" class="btn btn-default btn-lg">
+	  <h1 class="page-header">View database</h1>
+		<button id="hdd-view-back" type="button" class="btn btn-default btn-lg btn-right">
 		  <span class="glyphicon glyphicon-arrow-left"></span> Back
 		</button>
 		<h2 id="hbv-tablename">...</h2>
