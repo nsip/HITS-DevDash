@@ -13,16 +13,33 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="css/alertify.core.css" rel="stylesheet">
+    <link href="css/alertify.default.css" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
   </head>
 
-  <body>
+<!--
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
+Design changes:
+
+	* Entry View
+		- Jump buttons at the top to Detail, Request, Response
+		- Details across the top should be neat, not list items !
+		- Headers and XML sections should be max size and scrollable
+		- Expansion button on errors for XML (TBC)
+	* Client
+		- Fix height. Added lots of height:100% still not working !
+
+-->
+
+<body style="height: 100%;">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
 	<div class="navbar-header">
 	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	    <span class="sr-only">Toggle navigation</span>
@@ -45,15 +62,18 @@
 	  </form>
 -->
 	</div>
-      </div>
-    </div>
+  </div>
+</div>
 
-    <div class="container-fluid">
-      <div class="row">
+
+<div class="container-fluid" style="height: 100%;">
+  <div class="row" style="height: 100%;">
+
 	<div class="col-sm-3 col-md-2 sidebar">
 	  <ul class="nav nav-sidebar">
 	    <li class="hdd-nav active"><a id="hdd-nav-info" href="#hdd-body-info">Information</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-dashboard" href="#hdd-body-dashboard">Dashboard</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-client" href="#hdd-body-client">Client</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-view" href="#hdd-body-view">View</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-report" href="#hdd-body-report">Report</a></li>
 	  </ul>
@@ -164,7 +184,7 @@
 			<li>Method: <span class="field" dataid="method">...</span>
 			<li>Query Parameters: <span class="field" dataid="queryParameters">...</span>
 			<li>Request Time: <span class="field" dataid="requestTime">...</span>
-		<ul>
+		</ul>
 		<h3>Request Headers</h3>
 		<pre><code class="field" dataid="requestHeaders"></code></pre>
 		<h3>Request Body</h3>
@@ -184,11 +204,47 @@
 
 
 	<!-- ====================================================================== 
+			CLIENT
+	-->
+	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-client">
+	  <h1 class="page-header">Client Access</h1>
+		<iframe style="min-height: 100%; height: 600px; width: 100%;" src="http://hits.dev.nsip.edu.au/client/Simple/?school_id=0EE41AE6-C43F-11E3-9050-E0F4DBD909AB">
+		</iframe>
+	</div>
+
+	<!-- ====================================================================== 
 			VIEW
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-view">
 	  <h1 class="page-header">View Database</h1>
-		<p>View Database coming soon</p>
+		<ul id="hdd-body-view-list">
+		</ul>
+	</div>
+
+	<!-- ====================================================================== 
+			VIEW - Table
+	-->
+	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-view-table">
+	  <h1 class="page-header">View Database - Table</h1>
+		<button id="hdd-view-back" type="button" class="btn btn-default btn-lg">
+		  <span class="glyphicon glyphicon-arrow-left"></span> Back
+		</button>
+		<h2 id="hbv-tablename">...</h2>
+
+			<div class="table-responsive">
+				<table id="hbv-data" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Loading...</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Loading...</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<!-- ====================================================================== 
@@ -200,151 +256,196 @@
 	</div>
 
 
+  </div>
+</div>
 
+<script src="lib/jquery.js"></script>
+<script src="lib/jquery.rest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="lib/purl.js"></script>
+<script src="lib/alertify.js"></script>
+<script src="lib/jquery.tablesorter.js"></script>
+<!-- script src="js/docs.min.js"></script -->
 
-      </div>
-    </div>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
 
-    <script src="lib/jquery.js"></script>
-    <script src="lib/jquery.rest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="lib/purl.js"></script>
-    <script src="lib/alertify.js"></script>
-    <script src="lib/jquery.tablesorter.js"></script>
-    <!-- script src="js/docs.min.js"></script -->
+<script src="hits.devdash.js"></script>
+	hljs.initHighlightingOnLoad();
 
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
+	var entify = function(data) {
+			return document.createElement( 'a' ).appendChild( 
+					document.createTextNode( data ) ).parentNode.innerHTML;
+	};
 
-	<script>
-		hljs.initHighlightingOnLoad();
+	// ----------------------------------------------------------------------
+	// Navigation
+	$('.hdd-nav').click(function() {
+		$('.hdd-nav').removeClass('active');
+		$(this).addClass('active');
+		$('.hdd-body').hide();
+		$($(this).find('a').attr('href')).show(); // href contains ID
+	});
+	$('#hdd-dashboard-back').click(function() {
+		$('.hdd-body').hide();
+		$('#hdd-body-dashboard').show();
+	});
+	$('#hdd-view-back').click(function() {
+		$('.hdd-body').hide();
+		$('#hdd-body-view').show();
+	});
 
-        var entify = function(data) {
-                return document.createElement( 'a' ).appendChild( 
-                        document.createTextNode( data ) ).parentNode.innerHTML;
-        };
+	// ----------------------------------------------------------------------
+	// Load TOKEN and check for errors
+	var token = $.url().param('token');
+	console.log(token);
+	if (token) {
+		$('#hdd-info-error').hide();
+	}
+	else {
+		$('#hdd-info-error-details').html('No TOKEN provided');
+	}
 
-		// ----------------------------------------------------------------------
-		// Navigation
-		$('.hdd-nav').click(function() {
-			$('.hdd-nav').removeClass('active');
-			$(this).addClass('active');
-			$('.hdd-body').hide();
-			$($(this).find('a').attr('href')).show(); // href contains ID
-		});
-		$('#hdd-dashboard-back').click(function() {
-			$('.hdd-body').hide();
-			$('#hdd-body-dashboard').show();
-		});
-
-		// ----------------------------------------------------------------------
-		// Load TOKEN and check for errors
-		var token = $.url().param('token');
-		console.log(token);
-		if (token) {
-			$('#hdd-info-error').hide();
-		}
-		else {
-			$('#hdd-info-error-details').html('No TOKEN provided');
-		}
-
-		// ----------------------------------------------------------------------
-		// REST API
-		var api = new $.RestClient(
-			'',
-			{
-				cache: 10,
-				stripTrailingSlash: true,
-				stringifyData: true,
-				request: function(resource, options) {
-					return $.ajax(options);
-				},
-				ajax: {
-					contentType:"application/json; charset=utf-8"
-				},
-				fail: function(err) {
-					if (err.status == 403)
-						alertify.confirm("Authentication Failure: " + err.statusText, function (e) {
-							if (e) {
-								window.location = '/site/';
-							} else {
-								throw("403 error - " + err.statusText);
-							}
-						});
-					else {
-						if (err.responseText) {
-							alertify.alert("Unknown API Error: " + err.statusText + "<br><pre>" + err.responseText + "</pre>");
+	// ----------------------------------------------------------------------
+	// REST API
+	var api = new $.RestClient(
+		'',
+		{
+			cache: 10,
+			stripTrailingSlash: true,
+			stringifyData: true,
+			request: function(resource, options) {
+				return $.ajax(options);
+			},
+			ajax: {
+				contentType:"application/json; charset=utf-8"
+			},
+			fail: function(err) {
+				if (err.status == 403)
+					alertify.confirm("Authentication Failure: " + err.statusText, function (e) {
+						if (e) {
+							window.location = '/site/';
+						} else {
+							throw("403 error - " + err.statusText);
 						}
+					});
+				else {
+					if (err.responseText) {
+						alertify.alert("Unknown API Error: " + err.statusText + "<br><pre>" + err.responseText + "</pre>");
 					}
 				}
 			}
-		);
-		api.add('audit');
-		api.audit.add('entry');
-		api.add('view');
+		}
+	);
+	api.add('audit');
+	api.audit.add('entry');
+	api.add('view');
 
-		// ----------------------------------------------------------------------
-		// Update information details
+	// ----------------------------------------------------------------------
+	// Update information details
 
-		// ----------------------------------------------------------------------
-		// Events - only read audit log if that window is showing
-		$('#hdd-dashboard-refresh').click(function() {
-			api.audit.read(token).done(function(data) {
-				console.log(data);
-				var table = $('#hdd-dashboard-data');
-				var body = table.find('tbody');
-				body.empty();
-				$.each(data.audit, function(i,e) {
-					body.append(
-						'<tr>'
-						+ '<td>' 
-							+ '<a class="hdd-view" href="#view-' + e.id + '">'
-							+ e.id 
-							+ '</a>'
-						+ '</td>'
-						+ '<td>' + e.method + '</td>'
-						+ '<td>' + e.httpStatus + '</td>'
-						+ '<td>' + e.requestTime + '</td>'
-						+ '<td>' + e.url + '</td>'
-						+ '</tr>'
-					);
-				});
-				table.tablesorter(); 
+	// ----------------------------------------------------------------------
+	// Events - only read audit log if that window is showing
+	$('#hdd-dashboard-refresh').click(function() {
+		api.audit.read(token).done(function(data) {
+			console.log(data);
+			var table = $('#hdd-dashboard-data');
+			var body = table.find('tbody');
+			body.empty();
+			$.each(data.audit, function(i,e) {
+				body.append(
+					'<tr>'
+					+ '<td>' 
+						+ '<a class="hdd-view" href="#view-' + e.id + '">'
+						+ e.id 
+						+ '</a>'
+					+ '</td>'
+					+ '<td>' + e.method + '</td>'
+					+ '<td>' + e.httpStatus + '</td>'
+					+ '<td>' + e.requestTime + '</td>'
+					+ '<td>' + e.url + '</td>'
+					+ '</tr>'
+				);
+			});
+			table.tablesorter(); 
 
-				$('.hdd-view').click(function() {
-					var id = $(this).attr('href').substring(6);
-					api.audit.entry.read(token,id).done(function(data) {
-						console.log(data);
-						$('.hdd-body').hide();
-						$('#hdd-body-dashboard-view').show();
-						var disp = $('#hdd-body-dashboard-view');
+			$('.hdd-view').click(function() {
+				var id = $(this).attr('href').substring(6);
+				api.audit.entry.read(token,id).done(function(data) {
+					console.log(data);
+					$('.hdd-body').hide();
+					$('#hdd-body-dashboard-view').show();
+					var disp = $('#hdd-body-dashboard-view');
 
-						disp.find('.field').each(function(i, block) {
-							var k = $(this).attr('dataid');
-							$(this).html(entify(data[k]));
-						});
+					disp.find('.field').each(function(i, block) {
+						var k = $(this).attr('dataid');
+						$(this).html(entify(data[k]));
+					});
 
-						// disp.append('<pre><code>' + entify(data.response) + '</code></pre>');
-						$('#hdd-body-dashboard-view').find('pre code').each(function(i, block) {
-							hljs.highlightBlock(block);
-						});
+					// disp.append('<pre><code>' + entify(data.response) + '</code></pre>');
+					$('#hdd-body-dashboard-view').find('pre code').each(function(i, block) {
+						hljs.highlightBlock(block);
 					});
 				});
 			});
 		});
+	});
 
-		/* TODO 
+	/* TODO 
 
-			- Entry View
-				. Pretty presentation of each of the special fields
-				. HTTML Entify all
-				. Scrollable XML Request / Response boxes?
-				. Back button
-			- View (database)
-				. Tables
-				. Rows
-		*/
+		- Entry View
+			. Pretty presentation of each of the special fields
+			. HTTML Entify all
+			. Scrollable XML Request / Response boxes?
+			. Back button
+		- View (database)
+			. Tables
+			. Rows
+	*/
 
-		
-	</script>
-  </body>
+	// ----------------------------------------------------------------------
+	// Table / Database view
+	api.view.read().done(function(data) {
+		var ul = $('#hdd-body-view-list');
+		// TODO - Add row counts etc in here
+		$.each(data.table, function(key, val) {
+			ul.append('<li><a class="table-view" href="#' + key + '">' + key + '</a></li>');
+		});
+
+		$('.table-view').click(function() {
+			var table = $(this).attr('href').substring(1);
+			api.view.read(table).done(function(data) {
+				$('.hdd-body').hide();
+				$('#hdd-body-view-table').show();
+
+				$('#hbv-tablename').html(table);
+				var tbl = $('#hbv-data');
+				var head = tbl.find('thead tr');
+				var body = tbl.find('tbody');
+				head.empty();
+				body.empty();
+
+				var fields = [];
+				$.each(data.data[0], function(key, val) {
+					fields.push(key);
+				});
+				// fields.sort();
+				$.each(fields, function(x, k) {
+					head.append('<th>' + k + '</th>');
+				});
+
+				$.each(data.data, function(i, d) {
+					body.append('<tr></tr>');
+					var tr = body.find('tr').last();
+					$.each(fields, function(x, k) {
+						tr.append('<td>' + d[k] + '</td>');
+					});
+				});
+
+				tbl.tablesorter(); 
+			});
+		});
+	});
+	
+</script>
+</body>
 </html>

@@ -87,7 +87,7 @@ get '/:appKey' => sub {
 		FROM
 			XMLAudit
 		WHERE
-			appKey = 'HITS'
+			appKey = ?
 		ORDER BY
 			id DESC
 		LIMIT
