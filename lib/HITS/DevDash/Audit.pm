@@ -4,6 +4,8 @@ use Dancer ':syntax';
 use Dancer::Plugin::REST;
 use Dancer::Plugin::Database;
 use MIME::Base64;
+use lib '../sif-au-perl/lib';
+use SIF::AU;
 
 =head1 DATABASE
 
@@ -109,7 +111,38 @@ get '/:appKey/entry/:auditId' => sub {
 			appKey = ? AND id = ?
 	});
 	$sth->execute(params->{appKey}, params->{auditId});
-	return $sth->fetchrow_hashref // {};
+	my $data = $sth->fetchrow_hashref // {};
+
+	# XML Analysis
+	foreach my $type (qw/response request/) {
+		my $xml = $data->{$type} // '';
+		if ($xml) {
+			eval {
+				my $class = $xml;
+				$class =~ s/>.*$//s;
+				$class =~ s/^<//;
+				$class =~ s/ .*$//;
+				info("DETECTED $class");
+				$class = "SIF::AU::$class";
+				info("Converted $class");
+
+				my $obj = $class->from_xml($xml);
+				$obj->xml_validate();
+			};
+			if ($@) {
+				info ($@);
+				$data->{$type . "Analysis"} = $@ . "";
+			}
+			else {
+				$data->{$type . "Analysis"} = "NO ERRORS / WARNINGS";
+			}
+		}
+		else {
+			$data->{$type . "Analysis"} = "NO XML";
+		}
+	}
+		
+	return $data;
 };
 
 true;
