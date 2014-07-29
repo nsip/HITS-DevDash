@@ -5,6 +5,7 @@ use Dancer::Plugin::REST;
 use Dancer::Plugin::Database;
 use MIME::Base64;
 use lib '../sif-au-perl/lib';
+use lib '/home/scottp/nsip/sif-au-perl/lib';
 use SIF::AU;
 
 =head1 DATABASE
