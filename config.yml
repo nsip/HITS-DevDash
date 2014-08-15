@@ -43,5 +43,15 @@ plugins:
             RaiseError: 1
             AutoCommit: 1
         log_queries: 1
-
+        connections:
+            SIF:
+                driver: 'mysqlPP'
+                host: 'sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com'
+                database: 'X'
+                username: 'sifau'
+                password: '03_SIS_was_not'
+                dbi_params:
+                    RaiseError: 1
+                    AutoCommit: 1
+                log_queries: 1
 

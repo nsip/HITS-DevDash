@@ -12,7 +12,7 @@ set serializer => 'JSON';
 # List tables
 get '/' => sub {
 	my $ret = {};
-	foreach my $t (database->tables) {
+	foreach my $t (database('SIF')->tables) {
 		$t =~ s/^.+\.//;
 		$t =~ s/'//g;
 		$t =~ s/`//g;
@@ -30,7 +30,7 @@ get '/' => sub {
 # List data
 get '/:id' => sub {
 	# TODO - Add some href links & allow configurable limits, filters and sorting
-	my $sth = database->prepare('SELECT * FROM ' . params->{id} . ' LIMIT 250');
+	my $sth = database('SIF')->prepare('SELECT * FROM ' . params->{id} . ' LIMIT 250');
 	info('SELECT * FROM ' . params->{id} . ' LIMIT 250');
 	$sth->execute;
 	return {
