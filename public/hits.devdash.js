@@ -147,6 +147,23 @@ api.info.read(token).done(function(data) {
 	
 	console.log(url);
 
+	$('.info_field').each(function(i, block) {
+		var k = $(this).attr('dataid');
+
+                var fieldSplit = k.split(".");
+                var dataRef = data;
+                for (var i = 0; i < fieldSplit.length; i++) {
+                        try {
+                                dataRef = dataRef[fieldSplit[i]];
+                        }
+                        catch (err) {
+                                console.log("Unable to get next value from getData: " + field);
+                                dataRef = null;
+                        }
+                }
+		$(this).html(entify(dataRef));
+	});
+
 	$('.hdd-clienturl').each(function(index) {
 		var $this = $(this);
 		if ($this.attr('href')) {

@@ -44,10 +44,10 @@ plugins:
             AutoCommit: 1
         log_queries: 1
         connections:
-            SIF:
+            HITS:
                 driver: 'mysqlPP'
                 host: 'sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com'
-                database: 'X'
+                database: 'hits'
                 username: 'sifau'
                 password: '03_SIS_was_not'
                 dbi_params:

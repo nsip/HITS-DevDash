@@ -29,12 +29,37 @@ get '/:userToken' => sub {
 
 	# XXX What about other data
 	#	hits / Vendor information like apps and title
+	#	Vendor Name information...
 
 	# XXX AHHH all the Field name changes, userToken, USER_TOKEN !
 
 	$sth->execute(params->{userToken});
 	my $data = $sth->fetchrow_hashref // {};
+
+	$sth = database('HITS')->prepare(q{
+		SELECT 
+			app.id app_id, app.name app_name, app.title app_title, 
+			vendor.name vendor_name, vendor.id vendor_id
+		FROM 
+			app, vendor, app_login
+		WHERE
+			app.vendor_id = vendor.id
+			AND app.id = app_login.app_id
+			AND app_login.app_template_id = ?
+	});
+	$sth->execute($data->{APP_TEMPLATE_ID});
+	my $hits = $sth->fetchrow_hashref // {};
+		
 	return {
+		vendor => {
+			id => $hits->{vendor_id},
+			name => $hits->{vendor_name},
+		},
+		app => {
+			id => $hits->{app_id},
+			name => $hits->{app_name},
+			title => $hits->{app_title},
+		},
 		info => {
 			# XXX These names are wrong too - what is the right name?
 			#	Check XML Environment as convention?
