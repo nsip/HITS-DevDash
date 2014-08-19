@@ -9,10 +9,34 @@ our $VERSION = '0.1';
 prefix '/view';
 set serializer => 'JSON';
 
-# List tables
 get '/' => sub {
+};
+
+sub sif_db {
+	my ($userToken) = @_;
+
+	my $sth = database->prepare('SELECT databaseUrl FROM Zone WHERE zoneId = ?');
+	$sth->execute($userToken);
+	my $ref = $sth->fetchrow_hashref;
+	my $db = $ref->{databaseUrl};
+
+	if (!$db) {
+		die "No valid DB from userToken $userToken";
+	}
+	
+	return DBI->connect(
+		"DBI:mysql:database=$db;host=sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com", 
+		'sifau', 
+		'03_SIS_was_not', 
+		{ RaiseError => 1, AutoCommit => 1 }
+	);
+}
+
+# List tables
+get '/:userToken' => sub {
 	my $ret = {};
-	foreach my $t (database('SIF')->tables) {
+	my $dbh = sif_db(params->{userToken});
+	foreach my $t ($dbh->tables) {
 		$t =~ s/^.+\.//;
 		$t =~ s/'//g;
 		$t =~ s/`//g;
@@ -28,9 +52,10 @@ get '/' => sub {
 };
 
 # List data
-get '/:id' => sub {
+get '/:userToken/table/:id' => sub {
 	# TODO - Add some href links & allow configurable limits, filters and sorting
-	my $sth = database('SIF')->prepare('SELECT * FROM ' . params->{id} . ' LIMIT 250');
+	my $dbh = sif_db(params->{userToken});
+	my $sth = $dbh->prepare('SELECT * FROM ' . params->{id} . ' LIMIT 250');
 	info('SELECT * FROM ' . params->{id} . ' LIMIT 250');
 	$sth->execute;
 	return {
