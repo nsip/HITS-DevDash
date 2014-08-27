@@ -1,4 +1,4 @@
-package HITS::Identity;
+package HITS::DevDash::Audit;
 use perl5i::2;
 use Dancer ':syntax';
 use Dancer::Plugin::REST;
@@ -78,7 +78,7 @@ get '/' => sub {
 	# TODO - API definition
 };
 
-get '/:appKey' => sub {
+get '/:userToken' => sub {
 	# TODO - Show list for this ID (most recent 25, add params later)
 	my $sth = database->prepare(q{
 		SELECT 
@@ -90,28 +90,28 @@ get '/:appKey' => sub {
 		FROM
 			XMLAudit
 		WHERE
-			appKey = ?
+			userToken = ?
 		ORDER BY
 			id DESC
 		LIMIT
 			25
 	});
-	$sth->execute(params->{appKey});
+	$sth->execute(params->{userToken});
 	return {
 		audit => $sth->fetchall_arrayref({}),
 	};
 };
 
-get '/:appKey/entry/:auditId' => sub {
+get '/:userToken/entry/:auditId' => sub {
 	my $sth = database->prepare(q{
 		SELECT
 			*
 		FROM
 			XMLAudit
 		WHERE
-			appKey = ? AND id = ?
+			userToken = ? AND id = ?
 	});
-	$sth->execute(params->{appKey}, params->{auditId});
+	$sth->execute(params->{userToken}, params->{auditId});
 	my $data = $sth->fetchrow_hashref // {};
 
 	# XML Analysis

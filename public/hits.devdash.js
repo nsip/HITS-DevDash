@@ -64,15 +64,20 @@ var api = new $.RestClient(
 		}
 	}
 );
+api.add('info');
 api.add('audit');
 api.audit.add('entry');
 api.add('view');
+api.view.add('table');
 
 // ----------------------------------------------------------------------
 // Update information details
 
+$(document).ready(function(){
+
 // ----------------------------------------------------------------------
 // Events - only read audit log if that window is showing
+
 $('#hdd-dashboard-refresh').click(function() {
 	api.audit.read(token).done(function(data) {
 		console.log(data);
@@ -131,8 +136,48 @@ $('#hdd-dashboard-refresh').click(function() {
 */
 
 // ----------------------------------------------------------------------
+// Get info and populate necessary fields
+api.info.read(token).done(function(data) {
+	console.log(data);
+	
+	// XXX URL ENCODING !!!
+	var url = 'application_key=' + data.info.applicationKey
+		+ '&user_token=' + data.info.userToken
+		+ '&password=' + data.info.password;
+	
+	console.log(url);
+
+	$('.info_field').each(function(i, block) {
+		var k = $(this).attr('dataid');
+
+                var fieldSplit = k.split(".");
+                var dataRef = data;
+                for (var i = 0; i < fieldSplit.length; i++) {
+                        try {
+                                dataRef = dataRef[fieldSplit[i]];
+                        }
+                        catch (err) {
+                                console.log("Unable to get next value from getData: " + field);
+                                dataRef = null;
+                        }
+                }
+		$(this).html(entify(dataRef));
+	});
+
+	$('.hdd-clienturl').each(function(index) {
+		var $this = $(this);
+		if ($this.attr('href')) {
+			$this.attr('href', $this.attr('href') + url);
+		}
+		if ($this.attr('src')) {
+			$this.attr('src', $this.attr('src') + url);
+		}
+	});
+});
+
+// ----------------------------------------------------------------------
 // Table / Database view
-api.view.read().done(function(data) {
+api.view.read(token).done(function(data) {
 	var ul = $('#hdd-body-view-list');
 	// TODO - Add row counts etc in here
 	$.each(data.table, function(key, val) {
@@ -141,7 +186,7 @@ api.view.read().done(function(data) {
 
 	$('.table-view').click(function() {
 		var table = $(this).attr('href').substring(1);
-		api.view.read(table).done(function(data) {
+		api.view.table.read(token,table).done(function(data) {
 			$('.hdd-body').hide();
 			$('#hdd-body-view-table').show();
 
@@ -174,3 +219,5 @@ api.view.read().done(function(data) {
 	});
 });
 
+// END DOCUMENT ON READY
+});
