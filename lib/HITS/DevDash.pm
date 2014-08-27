@@ -7,5 +7,6 @@ use MIME::Base64;
 use HITS::DevDash::Info;
 use HITS::DevDash::Audit;
 use HITS::DevDash::View;
+use HITS::DevDash::Report;
 
 true;

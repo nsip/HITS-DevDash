@@ -39,3 +39,5 @@ plugins:
                 log_queries: 1
 
 
+hits:
+  dsn_template: 'dbi:mysqlPP:database=TEMPLATE;host=sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com'

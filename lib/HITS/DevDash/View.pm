@@ -1,4 +1,4 @@
-package HITS::Identity;
+package HITS::DevDash::View;
 use perl5i::2;
 use Dancer ':syntax';
 use Dancer::Plugin::REST;
@@ -27,8 +27,10 @@ sub sif_db {
 		die "No valid DB from userToken $userToken";
 	}
 	
+	my $dsn = config->{hits}{dsn_template};
+	$dsn =~ s/TEMPLATE/$db/;
 	return DBI->connect(
-		"DBI:mysql:database=$db;host=sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com", 
+		$dsn,
 		'sifau', 
 		'03_SIS_was_not', 
 		{ RaiseError => 1, AutoCommit => 1 }

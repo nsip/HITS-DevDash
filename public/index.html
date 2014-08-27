@@ -15,6 +15,7 @@
 
     <link href="css/alertify.core.css" rel="stylesheet">
     <link href="css/alertify.default.css" rel="stylesheet">
+    <link href="lib/jquery.loadmask.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
@@ -309,7 +310,15 @@ Design changes:
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-report">
 	  <h1 class="page-header">Report</h1>
-		<p>Report coming soon</p>
+
+		<button id="hdd-report" type="button" class="btn btn-default btn-lg btn-right">
+		  <span class="glyphicon glyphicon-refresh"></span> Report
+		</button>
+
+		<div id="hbr-data" style="min-height: 150px;">
+			<p>Click report above to laod report - be patient, can take some time...</p>
+		</div>
+
 	</div>
 
 
@@ -318,6 +327,7 @@ Design changes:
 
 <script src="lib/jquery.js"></script>
 <script src="lib/jquery.rest.js"></script>
+<script src="lib/jquery.loadmask.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="lib/purl.js"></script>
 <script src="lib/alertify.js"></script>
