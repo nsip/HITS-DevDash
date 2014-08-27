@@ -9,6 +9,8 @@ our $VERSION = '0.1';
 prefix '/view';
 set serializer => 'JSON';
 
+# XXX now needs the token !
+
 # List tables
 get '/' => sub {
 	my $ret = {};
