@@ -228,7 +228,7 @@ $('#hdd-report').click(function() {
 	var el = $('#hbr-data');
 	el.mask("Loading...");
 
-	api.report.read(info.info.appTemplateId).done(function(data) {
+	api.report.read(info.info.appTemplateId, { report: $('#select-report').val()}).done(function(data) {
 		console.log(data);
 		el.empty();
 		el.append("<h1>Report: " + data.title + "</h1>");

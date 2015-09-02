@@ -19,7 +19,8 @@ set serializer => 'JSON';
 get '/:templateId' => sub {
 	my $id = params->{templateId};
 	$id =~ s/[^0-9]//g;
-	my $report = "TimeTable/in.pl";
+	my $report = params->{report} || "TimeTable";
+	$report = "$report/in.pl";
 	if (!$id || !$report) {
 		die "No valid id or report requested";
 	}
@@ -29,7 +30,9 @@ get '/:templateId' => sub {
 	# 	- You can then view new or old entries, new ones not completed will
 	# 	have another status
 
-	system("export PERL5LIB=~/nsip/HITS-Reports/lib/; perl ~/nsip/HITS-Reports/bin/report $id ~/nsip/HITS-Reports/$report > /tmp/$$.pl");
+	my $d = config->{hits}{report_dir};
+
+	system("export PERL5LIB=$d/lib/; perl $d/bin/report $id $d/$report > /tmp/$$.pl 2> /tmp/$$.err");
 
 	my $in = do "/tmp/$$.pl";
 	if ($@) {

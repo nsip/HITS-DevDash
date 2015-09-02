@@ -40,4 +40,5 @@ plugins:
 
 
 hits:
-  dsn_template: 'dbi:mysqlPP:database=TEMPLATE;host=sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com'
+  dsn_template: 'dbi:mysql:database=TEMPLATE;host=sifau.cspvdo7mmaoe.ap-southeast-2.rds.amazonaws.com'
+  report_dir: '/home/scottp/nsip/HITS-Reports'
