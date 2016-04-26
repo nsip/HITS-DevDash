@@ -21,6 +21,21 @@
     <link href="css/dashboard.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+
+<style>
+	.create_title {
+		text-align: right;
+		display: inline-block;
+		width: 275px;
+	}
+	.create_element {
+		display: inline-block;
+		width: 150px;
+	}
+	.create_info {
+		color: red;
+	}
+</style>
   </head>
 
 <!--
@@ -80,11 +95,185 @@ Design changes:
 	<div class="col-sm-3 col-md-2 sidebar">
 	  <ul class="nav nav-sidebar">
 	    <li class="hdd-nav active"><a id="hdd-nav-info" href="#hdd-body-info">Information</a></li>
+	    <li class="hdd-nav"><a id="hdd-nav-create" href="#hdd-body-create">Create</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-dashboard" href="#hdd-body-dashboard">Dashboard</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-client" href="#hdd-body-client">Client</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-view" href="#hdd-body-view">View</a></li>
 	    <li class="hdd-nav"><a id="hdd-nav-report" href="#hdd-body-report">Report</a></li>
 	  </ul>
+	</div>
+
+
+
+	
+	<!-- ====================================================================== 
+			INFORMATION
+	-->
+	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-create">
+	  <h1 class="page-header">Create</h1>
+
+	  <p>Create 42... The final frontier.</p>
+
+	  <form id="create_form">
+		<div class="create_field">
+			<span class="create_title" id="create_schools_title">Number of schools:</span>
+			<span class="create_element">
+				<select class="create_control" name="schools" id="create_schools">
+					<option value="0">None</option>
+					<option value="1">1</option>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+					<option value="200">200</option>
+					<option value="500">500</option>
+				</select>
+			</span>
+			<span class="create_info" id="create_schools_info"> </span>
+		</div>
+		
+		<div class="create_field">
+			<span class="create_title" id="create_staff_title">Number of staff: (per school, random)</span>
+			<span class="create_element">
+				<select class="create_control" name="staff" id="create_staff">
+					<option value="0">None</option>
+					<option value="1">1</option>
+					<option value="2-5">2-5</option>
+					<option value="5-20">5-20</option>
+					<option value="10-30">10-30</option>
+				</select>
+			</span>
+			<span class="create_info" id="create_staff_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_students_title">Number of students: (per school, random)</span>
+			<span class="create_element">
+				<select class="create_control" name="students" id="create_students">
+					<option value="0">None</option>
+					<option value="1">1</option>
+					<option value="10-50">10-50</option>
+					<option value="50-100">50-100</option>
+					<option value="50-200">50-200</option>
+					<option value="100-200">100-200</option>
+					<option value="150-300">150-300</option>
+					<option value="300-500">300-500</option>
+					<option value="400-1000">400-1000</option>
+				</select>
+			</span>
+			<span class="create_info" id="create_students_info"> </span>
+		</div>
+		  
+		<div class="create_field">
+			<span class="create_title" id="create_rooms_title">Number of rooms: (per school, random)</span>
+			<span class="create_element">
+				<select class="create_control" name="rooms" id="create_rooms">
+					<option value="0">None</option>
+					<option value="1">1</option>
+					<option value="3-5">3-5</option>
+					<option value="3-20">3-20</option>
+					<option value="10-25">10-25</option>
+					<option value="15-35">15-35</option>
+				</select>
+			</span>
+			<span class="create_info" id="create_rooms_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_teachinggroups_title">Teaching groups: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_teachinggroups" />
+			</span>
+			<span class="create_info" id="create_teachinggroups_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_timetable_title">Timetable: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_timetable" />
+			</span>
+			<span class="create_info" id="create_timetable_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_grading_title">Grading: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_grading" />
+			</span>
+			<span class="create_info" id="create_grading_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_contact_information_title">Contact information: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_contact_information" />
+			</span>
+			<span class="create_info" id="create_contact_information_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_accoutns_title">Accounts: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_accounts" />
+			</span>
+			<span class="create_info" id="create_accounts_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_vendors_title">Vendors: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_vendors" />
+			</span>
+			<span class="create_info" id="create_vendors_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_debtors_title">Debtors: </span>
+			<span class="create_element">
+				<input class="create_control" type="checkbox" value="yes" id="create_debtors" />
+			</span>
+			<span class="create_info" id="create_debtors_info"> </span>
+		</div>
+
+		<div class="create_field">
+			<span class="create_title" id="create_submit_title"></span>
+			<span class="create_element">
+				<input class="create_control" type="submit" value="submit" id="create_submit" />
+			</span>
+			<span class="create_info" id="create_submit_info"> </span>
+		</div>
+
+
+
+	  </form>
+
+	  <pre id="create_results">
+      Options
+        - Number of schools - always on
+        - Number of Students - must have 1+ schools
+        - Number of Staff - must have 1+ schools
+        - Rooms - must have 1+ schools
+        - Teaching groups
+        - Time Table
+        - Grading
+        - Student Contacts - must have 1+ students/staff
+        - Accounts
+        - Vendors
+        - Debtors
+		- Apply button
+
+
+      Use Cases:
+        - Drop down list of use cases
+			On click - select new Description below
+        - Shows a text description of each
+        - Apply button
+			On click - Overwrite options to the left
+        
+	  </pre>
+
+
+
 	</div>
 
 
@@ -121,6 +310,10 @@ Design changes:
 			  </td>
 			</tr>
 
+			<tr>
+			  <td>Environment End Point</td>
+			  <td><span class="info_field" dataid="info.href">...</span></td>
+			</tr>
 			<tr>
 			  <td>SIF applicationKey</td>
 			  <td><span class="info_field" dataid="info.applicationKey">...</span></td>
@@ -263,7 +456,27 @@ Design changes:
 	-->
 	<div style="display:none" class="hdd-body col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="hdd-body-client">
 	  <h1 class="page-header">Client access</h1>
+
+	  	<!-- TODO Better presentation of this list/menu -->
+
 		<a href="http://hits.dev.nsip.edu.au/sifdoc/SIFSimple/">View Swagger documentation</a>
+		|
+
+		<!-- TODO Links to auto generated examples -->
+		<a href="#">Display CURL example</a>
+		|
+
+		<a href="#">Display Perl example</a>
+		|
+
+		<a href="#">Display JAVA example</a>
+		|
+
+		<a href="#">Display C# example</a>
+		|
+
+		<a href="#">Other examples</a>
+
 		
 <!-- XXX Wrong calling parameters now !!! -->
 		<iframe style="height: 640px; width: 100%;" class="hdd-clienturl" src="http://hits.dev.nsip.edu.au/client/Simple/?">
@@ -342,5 +555,105 @@ Design changes:
 <script src="lib/jquery.tablesorter.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
 <script src="hits.devdash.js"></script>
+
+		<script>
+
+			var updateCreate = function() {
+				var schools = ($('#create_schools').val() != '0');
+				var staff = schools && ($('#create_staff').val() != '0');
+				var students = schools && ($('#create_students').val() != '0');
+
+				// ACCOUNTS
+				$( "#create_vendors" ).prop( "disabled", true );
+				$( "#create_vendors_info" ).html("Need to enable accounts with 1 or more schools");
+				$( "#create_debtors" ).prop( "disabled", true );
+				$( "#create_debtors_info" ).html("Need to enable accounts with 1 or more schools");
+				console.log("Disabled", schools);
+				if (schools && $('#create_accounts').is(':checked')) {
+					$( "#create_vendors" ).prop( "disabled", false );
+					$( "#create_vendors_info" ).html("");
+					$( "#create_debtors" ).prop( "disabled", false );
+					$( "#create_debtors_info" ).html("");
+				}
+
+				// STAFF/STUDENTS/TEACHINGGROUPS
+				$( "#create_staff" ).prop( "disabled", true );
+				$( "#create_staff_info" ).html("Need 1 or more schools");
+				$( "#create_students" ).prop( "disabled", true );
+				$( "#create_students_info" ).html("Need 1 or more schools");
+				$( "#create_teachinggroups" ).prop( "disabled", true );
+				$( "#create_teachinggroups_info" ).html("Need 1 or more schools");
+				$( "#create_rooms" ).prop( "disabled", true );
+				$( "#create_rooms_info" ).html("Need 1 or more schools");
+				$( "#create_accounts" ).prop( "disabled", true );
+				$( "#create_accounts_info" ).html("Need 1 or more schools");
+				if (schools) {
+					$( "#create_staff" ).prop( "disabled", false );
+					$( "#create_staff_info" ).html("");
+					$( "#create_students" ).prop( "disabled", false );
+					$( "#create_students_info" ).html("");
+					$( "#create_teachinggroups" ).prop( "disabled", false );
+					$( "#create_teachinggroups_info" ).html("");
+					$( "#create_rooms" ).prop( "disabled", false );
+					$( "#create_rooms_info" ).html("");
+					$( "#create_accounts" ).prop( "disabled", false );
+					$( "#create_accounts_info" ).html("");
+				}
+
+				// TIMETABLE / GRADING
+				$( "#create_grading" ).prop( "disabled", true );
+				$( "#create_grading_info" ).html("Need staff or students and teaching groups");
+				$( "#create_timetable" ).prop( "disabled", true );
+				$( "#create_timetable_info" ).html("Need staff or students and teaching groups");
+				if ( (staff || students) && $('#create_teachinggroups').is(':checked')) {
+					$( "#create_grading" ).prop( "disabled", false );
+					$( "#create_grading_info" ).html("");
+					$( "#create_timetable" ).prop( "disabled", false );
+					$( "#create_timetable_info" ).html("");
+				}
+
+				// CONTACT INFORMATION
+				$( "#create_contact_information" ).prop( "disabled", true );
+				$( "#create_contact_information_info" ).html("Need staff or students");
+				if (staff || students) {
+					$( "#create_contact_information" ).prop( "disabled", false );
+					$( "#create_contact_information_info" ).html("");
+				}
+			
+			};
+
+			$( document ).ready(function() {
+				updateCreate();
+				$('#create_submit').click(function() {
+					$('#create_results').html("");
+					//$("#create_form :input" ).prop( "disabled", true );
+					//$("#create_form :select" ).prop( "disabled", true );
+					$("#create_submit_info").html("Please wait... creating dataset");
+
+					// var url = "/dbcreate/?";
+
+					var jqxhr = $.ajax( "/dbcreate/?x=abc" )
+					.done(function(data) {
+						console.log( "success", data );
+						$('#create_results').html(data.responseText);
+					})
+					.fail(function(data) {
+						console.log("error", data);
+						$('#create_results').html(data.responseText);
+					})
+					.always(function(data) {
+						console.log("complete", data);
+						$('#create_results').html(data.responseText);
+					});
+
+					return false;
+				});
+				$('.create_control').click(function() { 
+					updateCreate() 
+					return false;
+				});
+			});
+		</script>
+
 </body>
 </html>

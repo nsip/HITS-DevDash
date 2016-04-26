@@ -63,6 +63,7 @@ get '/:userToken' => sub {
 		info => {
 			# XXX These names are wrong too - what is the right name?
 			#	Check XML Environment as convention?
+			href => "http://hits.dev.nsip.edu.au:8080/SIF3InfraREST/hits/",
 			template => $data->{ENV_TEMPLATE_ID},
 			password => $data->{PASSWORD},
 			instanceId => $data->{APP_TEMPLATE_ID},
