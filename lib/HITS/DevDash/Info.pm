@@ -20,21 +20,31 @@ get '/:userToken' => sub {
 	# TODO - Show list for this ID (most recent 25, add params later)
 	my $sth = database->prepare(q{
 		SELECT 
-			*
+			t.ENV_TEMPLATE_ID, t.PASSWORD, t.APP_TEMPLATE_ID, t.APP_TEMPLATE_ID,
+			t.AUTH_METHOD, t.USER_TOKEN, t.APPLICATION_KEY, t.SOLUTION_ID,
+			s.SESSION_TOKEN, s.ENVIRONMENT_ID
 		FROM
-			SIF3_APP_TEMPLATE
+			SIF3_APP_TEMPLATE t
+			LEFT JOIN SIF3_SESSION s
+			ON (s.SOLUTION_ID='HITS' AND s.APPLICATION_KEY=t.APPLICATION_KEY AND s.USER_TOKEN=t.USER_TOKEN)
 		WHERE
-			USER_TOKEN = ?
+			t.USER_TOKEN = ?
 	});
 
-	# XXX What about other data
-	#	hits / Vendor information like apps and title
-	#	Vendor Name information...
-
-	# XXX AHHH all the Field name changes, userToken, USER_TOKEN !
 
 	$sth->execute(params->{userToken});
 	my $data = $sth->fetchrow_hashref // {};
+
+	# MAP Data to empty values for login
+	if ($data->{SESSION_TOKEN}) {
+		$data->{ENVIRONMENT_URL} = "http://hits.dev.nsip.edu.au/SIF3InfraREST/hits/environments/" . $data->{ENVIRONMENT_ID};
+		$data->{REQUEST_HREF} = "http://hits.dev.nsip.edu.au/SIF3InfraREST/hits/requests";
+	}
+	else {
+		$data->{SESSION_TOKEN} = "Please create environment";
+		$data->{ENVIRONMENT_URL} = "Please create environment";
+		$data->{REQUEST_HREF} = "Please create environment";
+	}
 
 	$sth = database('HITS')->prepare(q{
 		SELECT 
@@ -72,6 +82,9 @@ get '/:userToken' => sub {
 			userToken => $data->{USER_TOKEN},
 			applicationKey => $data->{APPLICATION_KEY},
 			solutionId => $data->{SOLUTION_ID},
+			sessionToken => $data->{SESSION_TOKEN},
+			environmentURL => $data->{ENVIRONMENT_URL},
+			requestHREF => $data->{REQUEST_HREF},
 		}
 	};
 };
