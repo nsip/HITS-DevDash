@@ -661,6 +661,7 @@ Design changes:
 
 					var url = "/dbapi/?encode=json";
 					url += "&name=" + $('#create_dbname').val();
+					url += "&schools=" + $('#create_schools').val();
 
 					var jqxhr = $.ajax( url )
 					.error(function(data) {
